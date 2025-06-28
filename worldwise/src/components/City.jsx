@@ -36,6 +36,10 @@ function City() {
 
   if (isLoading) return <Spinner />;
 
+  if (!emoji) {
+    return;
+  }
+
   // return (
   //   <>
   //     <h1>City {id}</h1>
