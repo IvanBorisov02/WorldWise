@@ -17,7 +17,7 @@ function CitiesProvider({ children }) {
         const data = await res.json();
         setCities(data);
       } catch (error) {
-        alert("There was an error loadig data!");
+        alert("Възникна грешка при зареждането на данните 😢");
       } finally {
         setIsLoading(false);
       }
@@ -32,14 +32,58 @@ function CitiesProvider({ children }) {
       const data = await res.json();
       setCurrentCity(data);
     } catch (error) {
-      alert("There was an error loadig data!");
+      alert("Възникна грешка при зареждането на данните 😢");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+
+      setCities((cities) => [...cities, data]);
+      setCurrentCity(data);
+    } catch (error) {
+      alert("Възникна грешка по време на добавянето на града 😢");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function deleteCity(id) {
+    try {
+      setIsLoading(true);
+      await fetch(`${BASE_URL}/cities/${id}`, {
+        method: "DELETE",
+      });
+      setCities((cities) => cities.filter((city) => city.id !== id));
+    } catch (error) {
+      alert("Възникна грешка при изтриването на данните 😢");
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity }}>
+    <CitiesContext.Provider
+      value={{
+        cities,
+        isLoading,
+        currentCity,
+        getCity,
+        createCity,
+        deleteCity,
+      }}
+    >
       {children}
     </CitiesContext.Provider>
   );
@@ -48,7 +92,7 @@ function CitiesProvider({ children }) {
 function useCities() {
   const context = useContext(CitiesContext);
   if (context === undefined)
-    throw new Error("CitiesCoontext was used outside the CitiesProvider");
+    throw new Error("CitiesCoontext е използвано извън CitiesProvider");
   return context;
 }
 
