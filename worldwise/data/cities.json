@@ -35,6 +35,28 @@
         "lng": 13.376933665713324
       },
       "id": "98443197"
+    },
+    {
+      "id": "acda",
+      "cityName": "Sofia",
+      "country": "Bulgaria",
+      "emoji": {
+        "type": "img",
+        "key": null,
+        "ref": null,
+        "props": {
+          "src": "https://flagcdn.com/24x18/ຝຢ.png",
+          "alt": "flag"
+        },
+        "_owner": null,
+        "_store": {}
+      },
+      "date": "2025-07-02T09:32:44.522Z",
+      "notes": "Amazing City😍",
+      "position": {
+        "lat": "42.696013425605415",
+        "lng": "23.318078429757055"
+      }
     }
   ]
 }
